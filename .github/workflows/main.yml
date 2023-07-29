@@ -22,6 +22,7 @@ jobs:
       # Step 2: run the sync action
       - name: Sync upstream changes
         id: sync
+        run: echo hello world
 
       - name: Sync check
         if: failure()
