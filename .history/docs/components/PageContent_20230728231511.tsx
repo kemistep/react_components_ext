@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
-import { useRouter } from "next/router";
-import { MarkdownRenderer } from "react-code-view";
-import { Divider, Footer } from "rsuite";
-import components from "../utils/component.config.json";
-import { getDescription, getTitle } from "../utils/parseHTML";
-import scrollIntoView from "../utils/scrollIntoView";
-import AppContext from "./AppContext";
-import CustomCodeView, { CustomCodeViewProps } from "./CodeView";
-import Head from "./Head";
-import PageContainer from "./PageContainer";
-import { VercelBanner } from "./VercelBanner";
+import { useRouter } from 'next/router';
+import { Divider, Footer } from 'rsuite';
+import { MarkdownRenderer } from 'react-code-view';
+import AppContext from './AppContext';
+import PageContainer from './PageContainer';
+import Head from './Head';
+import components from '../utils/component.config.json';
+import { getTitle, getDescription } from '../utils/parseHTML';
+import scrollIntoView from '../utils/scrollIntoView';
+import { VercelBanner } from './VercelBanner';
+import CustomCodeView, { CustomCodeViewProps } from './CodeView';
 
 export interface PageContentProps extends CustomCodeViewProps {
   id?: string;
@@ -22,16 +22,15 @@ export interface PageContentProps extends CustomCodeViewProps {
 }
 
 function installCarbon() {
-  const subtitle = document.querySelector("h2");
-  const carbonadsJs = document.getElementById("_carbonads_js");
+  const subtitle = document.querySelector('h2');
+  const carbonadsJs = document.getElementById('_carbonads_js');
 
   if (subtitle && !carbonadsJs) {
-    const adSpace = document.createElement("div");
-    const carbon = document.createElement("script");
+    const adSpace = document.createElement('div');
+    const carbon = document.createElement('script');
 
-    carbon.src =
-      "https://cdn.carbonads.com/carbon.js?serve=CEAIL2JU&placement=rsuitejscom";
-    carbon.id = "_carbonads_js";
+    carbon.src = 'https://cdn.carbonads.com/carbon.js?serve=CEAIL2JU&placement=rsuitejscom';
+    carbon.id = '_carbonads_js';
     adSpace.appendChild(carbon);
 
     subtitle.parentNode.insertBefore(adSpace, subtitle);
@@ -40,12 +39,12 @@ function installCarbon() {
 
 const PageContent = (props: PageContentProps) => {
   const {
-    category = "components",
+    category = 'components',
     dependencies,
     children,
     hidePageNav,
     sandboxFiles,
-    sandboxDependencies,
+    sandboxDependencies
   } = props;
   const { localePath } = React.useContext(AppContext);
 
@@ -67,15 +66,11 @@ const PageContent = (props: PageContentProps) => {
 
   useEffect(() => {
     scrollIntoView();
-    // installCarbon();广告
+    installCarbon();
   }, []);
 
   return (
-    <PageContainer
-      designHash={designHash}
-      routerId={pathname}
-      hidePageNav={hidePageNav}
-    >
+    <PageContainer designHash={designHash} routerId={pathname} hidePageNav={hidePageNav}>
       {pageHead}
       {fragments.map((item, index) => {
         const result = item.match(/include:`(\S+)`(\|(\d+)\|)?/);
@@ -86,7 +81,7 @@ const PageContent = (props: PageContentProps) => {
 
         if (fileName) {
           const path =
-            "https://github.com/rsuite/rsuite/tree/master/docs/pages" +
+            'https://github.com/rsuite/rsuite/tree/master/docs/pages' +
             `${pathname}/fragments/${fileName}`;
 
           return (
